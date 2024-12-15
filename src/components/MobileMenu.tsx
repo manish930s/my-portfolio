@@ -8,24 +8,24 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   useEffect(() => {
-    // Disable body scroll when the menu is open
+    // Prevent body scrolling when the menu is open
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
 
-    // Cleanup on component unmount
     return () => {
+      // Cleanup to prevent side effects
       document.body.style.overflow = '';
     };
   }, [isOpen]);
 
   return (
     <>
-      {/* Full Screen Blocking Overlay */}
+      {/* Full-Screen Blocking Overlay */}
       <div
-        className={`fixed inset-0 bg-white z-40 transition-opacity ${
+        className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
         onClick={onClose} // Close menu when overlay is clicked
@@ -33,16 +33,18 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 bg-white z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 left-0 w-full h-full bg-white z-50 transform transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
+        {/* Close Button */}
         <div className="flex justify-end p-4">
           <button onClick={onClose} className="p-2">
             <X className="w-6 h-6" />
           </button>
         </div>
 
+        {/* Navigation Links */}
         <nav className="flex flex-col items-center space-y-8 mt-8">
           <a
             href="#home"
@@ -74,6 +76,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </a>
         </nav>
 
+        {/* Social Links */}
         <div className="flex justify-center space-x-6 mt-12">
           <a
             href="https://github.com/manish930s"
