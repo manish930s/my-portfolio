@@ -8,13 +8,21 @@ export function Scene() {
     <div className="h-full w-full flex flex-col md:grid md:grid-cols-2">
       {/* 3D Canvas */}
       <div className="relative h-[50vh] md:h-full w-full">
-        <Canvas>
+        <Canvas
+          style={{ background: 'transparent' }} // Transparent canvas background
+          gl={{ alpha: true }} // Enable alpha transparency
+        >
+          {/* Camera */}
           <PerspectiveCamera makeDefault position={[-2, 0, 5]} />
+
+          {/* Orbit Controls */}
           <OrbitControls
             enableZoom={false}
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 3}
           />
+
+          {/* Lights */}
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} intensity={1} />
           <spotLight
@@ -24,9 +32,11 @@ export function Scene() {
             penumbra={1}
           />
 
-          <Photo3D position={[0, 0, 0]} />
-          <Particles count={200} />
+          {/* 3D Elements */}
+          <Photo3D position={[0, 0, 0]} /> {/* Display your image */}
+          <Particles count={200} /> {/* Add particle effects */}
 
+          {/* Fog for Depth Effect */}
           <fog attach="fog" args={['#202020', 5, 20]} />
         </Canvas>
       </div>
